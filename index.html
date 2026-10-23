@@ -7,6 +7,18 @@
     <title> SOLAR | Explore the Planets</title>
     <link rel="stylesheet" href="style.css">
     <script src="solar.js" defer></script>
+
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+  }
+}
+</script>
+
+
+    <script type="module" src="solar3d.js"></script>
 </head>
 
 <body>
@@ -16,7 +28,7 @@
         <h1>EXPLORE THE SOLAR SYSTEM</h1>
         <p>Click a planet to discover more.</p>
 
-        <div class="planets">
+        <div class="planet">
             <h2 onclick="showPlanet('Mercury')">MERCURY</h2>
         </div>
 
