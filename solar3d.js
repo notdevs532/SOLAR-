@@ -11,22 +11,27 @@ const cam =  new THREE.PerspectiveCamera(
     1000
 );
 
-cam.position.z = 8;
+cam.position.z = 0,0,0;
 
 
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+const renderer = new THREE.WebGLRenderer({
+    antialias: true
+});
+
+renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-window.addEventListener('resize',() =>{
+document.body.appendChild(renderer.domElement);
 
-    cam.aspect =  window.innerWidth / window.innerHeight;
+window.addEventListener("resize", () => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    cam.aspect = width / height;
     cam.updateProjectionMatrix();
 
-     renderer.setSize(window.innerWidth, window.innerHeight);
-
-})
-
-document.body.appendChild(renderer.domElement);
+    renderer.setSize(width, height);
+});
 
 const controls= new OrbitControls(cam,renderer.domElement);
 controls.enableDamping = true;
@@ -44,20 +49,107 @@ scene.add(fillLight);
 const  loader =  new THREE.TextureLoader();
 const texture = loader.load("img/earth.jpg");
 const sunText = loader.load("img/sun.jpg");
+const merText = loader.load("img/mercury.jpg");
+const venText = loader.load("img/venus.jpg")
+const marText = loader.load("img/mars.jpg")
+const jupText = loader.load("img/jupiter.jpg")
+const satText = loader.load("img/saturn.jpg");
+const ringText = loader.load("img/saturn_ring.png")
+const uranusText = loader.load("img/uranus.jpg")
+const napText = loader.load("img/naptune.jpg")
 
-const sunGeometry = new THREE.SphereGeometry(4,52,52)
+const sunGeometry = new THREE.SphereGeometry(5,52,52)
 const sunMaterial = new THREE.MeshStandardMaterial({map:sunText, roughness: 1, metalness:0 });
 const sun = new THREE.Mesh(sunGeometry, sunMaterial);
 sun.position.z = 10
+sun.position.x = 7
 
 scene.add(sun);
 
-const geometry = new THREE.SphereGeometry(3,42,42)
+const merGeometry = new THREE.SphereGeometry(1,42,42)
+const merMaterial = new THREE.MeshStandardMaterial({map:merText, roughness: 1, metalness:0 });
+const mercury = new THREE.Mesh(merGeometry, merMaterial);
+mercury.position.x = 7
+
+scene.add(mercury);
+
+const venGeometry = new THREE.SphereGeometry(1.7,42,42)
+const venMaterial = new THREE.MeshStandardMaterial({map:venText, roughness: 1, metalness:0 });
+const venus = new THREE.Mesh(venGeometry, venMaterial);
+venus.position.z = -3
+venus.position.x = 7
+
+
+scene.add(venus);
+
+
+const geometry = new THREE.SphereGeometry(1.7,42,42)
 const material = new THREE.MeshStandardMaterial({map:texture, roughness: 1, metalness:0 });
 const planet = new THREE.Mesh(geometry, material);
 planet.position.x = 7
+planet.position.z = -10
 
 scene.add(planet);
+
+
+const marGeometry = new THREE.SphereGeometry(1.3,42,42)
+const marMaterial = new THREE.MeshStandardMaterial({map:marText, roughness: 1, metalness:0 });
+const mars = new THREE.Mesh(marGeometry, marMaterial);
+mars.position.x = 7
+mars.position.z = -18
+
+scene.add(mars);
+
+const jupGeometry = new THREE.SphereGeometry(4.4,42,42)
+const jupMaterial = new THREE.MeshStandardMaterial({map:jupText, roughness: 1, metalness:0 });
+const jupiter = new THREE.Mesh(jupGeometry, jupMaterial);
+jupiter.position.x = 7
+jupiter.position.z = -28
+
+scene.add(jupiter);
+
+const satGeometry = new THREE.SphereGeometry(4,42,42)
+const satMaterial = new THREE.MeshStandardMaterial({map:satText, roughness: 1, metalness:0 });
+const saturn = new THREE.Mesh(satGeometry, satMaterial);
+saturn.position.x = 7
+saturn.position.z = -43
+
+scene.add(saturn);
+
+const ringGeometry = new THREE.RingGeometry(4.7, 7, 100);
+
+const ringMaterial = new THREE.MeshStandardMaterial({
+    map: ringText,
+    side: THREE.DoubleSide,
+    roughness: 1,
+    metalness: 0,
+    transparent: true,
+    opacity: 0.9
+});
+
+const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+
+
+ring.rotation.x = -Math.PI / 2;
+
+saturn.add(ring);
+
+const uraGeometry = new THREE.SphereGeometry(4,42,42)
+const uraMaterial = new THREE.MeshStandardMaterial({map:uranusText, roughness: 1, metalness:0 });
+const uranus = new THREE.Mesh(uraGeometry, uraMaterial);
+uranus.position.x = 7
+uranus.position.z = -59
+
+scene.add(uranus);
+
+const napGeometry = new THREE.SphereGeometry(4,42,42)
+const napMaterial = new THREE.MeshStandardMaterial({map:napText, roughness: 1, metalness:0 });
+const napturn = new THREE.Mesh(napGeometry, napMaterial);
+napturn.position.x = 7
+napturn.position.z = -70
+
+scene.add(napturn);
+
 
 const starGeometry = new THREE.BufferGeometry();
 const starcount = 1500;
@@ -92,8 +184,13 @@ scene.add(stars);
 function  animate() {
     requestAnimationFrame(animate)
     planet.rotation.y += 0.01;
-
+    mercury.rotation.y += 0.01;
     sun.rotation.y += 0.01;
+    venus.rotation.y += 0.01;
+    mars.rotation.y += 0.01;
+    jupiter.rotation.y += 0.01;
+    saturn.rotation.y += 0.01;
+   uranus.rotation.y += 0.01;
 
 
 
