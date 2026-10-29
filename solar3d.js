@@ -5,13 +5,15 @@ import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.180.0/exampl
 
 const scene = new THREE.Scene();
 const cam =  new THREE.PerspectiveCamera(
-    100,  
+    120,  
     window.innerWidth / window.innerHeight,
     0.1,
     1000
 );
 
-cam.position.z = 0,0,0;
+
+cam.position.set(0, 20, 100);
+
 
 
 const renderer = new THREE.WebGLRenderer({
@@ -37,7 +39,10 @@ const controls= new OrbitControls(cam,renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 controls.minDistance = 5;
-controls.maxDistance = 30;
+controls.maxDistance = 200;
+
+controls.target.set(35, 0, 0);
+controls.update();
 
 const light = new THREE.DirectionalLight(0xffffff, 3)
 light.position.set(2,5,2)
@@ -56,38 +61,46 @@ const jupText = loader.load("img/jupiter.jpg")
 const satText = loader.load("img/saturn.jpg");
 const ringText = loader.load("img/saturn_ring.png")
 const uranusText = loader.load("img/uranus.jpg")
-const napText = loader.load("img/naptune.jpg")
+const napText = loader.load("img/neptune.jpg")
 
 const sunGeometry = new THREE.SphereGeometry(5,52,52)
 const sunMaterial = new THREE.MeshStandardMaterial({map:sunText, roughness: 1, metalness:0 });
 const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-sun.position.z = 10
-sun.position.x = 7
+sun.position.set(-30,0,0);
 
 scene.add(sun);
 
 const merGeometry = new THREE.SphereGeometry(1,42,42)
 const merMaterial = new THREE.MeshStandardMaterial({map:merText, roughness: 1, metalness:0 });
 const mercury = new THREE.Mesh(merGeometry, merMaterial);
-mercury.position.x = 7
+mercury.position.set(-23,0,0);
 
 scene.add(mercury);
+
+const mercuryOrbit = new THREE.Object3D();
+scene.add(mercuryOrbit);
+mercuryOrbit.position.set(-23,0,0);
+mercuryOrbit.add(mercury);
+
 
 const venGeometry = new THREE.SphereGeometry(1.7,42,42)
 const venMaterial = new THREE.MeshStandardMaterial({map:venText, roughness: 1, metalness:0 });
 const venus = new THREE.Mesh(venGeometry, venMaterial);
-venus.position.z = -3
-venus.position.x = 7
+venus.position.set(-18,0,0);
 
 
 scene.add(venus);
+
+const venusOrbit = new THREE.Object3D();
+scene.add(venusOrbit);
+venusOrbit.position.set(-18,0,0);
+venusOrbit.add(venus);
 
 
 const geometry = new THREE.SphereGeometry(1.7,42,42)
 const material = new THREE.MeshStandardMaterial({map:texture, roughness: 1, metalness:0 });
 const planet = new THREE.Mesh(geometry, material);
-planet.position.x = 7
-planet.position.z = -10
+planet.position.set(-12,0,0);
 
 scene.add(planet);
 
@@ -95,24 +108,19 @@ scene.add(planet);
 const marGeometry = new THREE.SphereGeometry(1.3,42,42)
 const marMaterial = new THREE.MeshStandardMaterial({map:marText, roughness: 1, metalness:0 });
 const mars = new THREE.Mesh(marGeometry, marMaterial);
-mars.position.x = 7
-mars.position.z = -18
-
+mars.position.set(-5,0,0);
 scene.add(mars);
 
 const jupGeometry = new THREE.SphereGeometry(4.4,42,42)
 const jupMaterial = new THREE.MeshStandardMaterial({map:jupText, roughness: 1, metalness:0 });
 const jupiter = new THREE.Mesh(jupGeometry, jupMaterial);
-jupiter.position.x = 7
-jupiter.position.z = -28
-
+jupiter.position.set(7,0,0);
 scene.add(jupiter);
 
 const satGeometry = new THREE.SphereGeometry(4,42,42)
 const satMaterial = new THREE.MeshStandardMaterial({map:satText, roughness: 1, metalness:0 });
 const saturn = new THREE.Mesh(satGeometry, satMaterial);
-saturn.position.x = 7
-saturn.position.z = -43
+saturn.position.set(20,0,0);
 
 scene.add(saturn);
 
@@ -137,18 +145,18 @@ saturn.add(ring);
 const uraGeometry = new THREE.SphereGeometry(4,42,42)
 const uraMaterial = new THREE.MeshStandardMaterial({map:uranusText, roughness: 1, metalness:0 });
 const uranus = new THREE.Mesh(uraGeometry, uraMaterial);
-uranus.position.x = 7
-uranus.position.z = -59
+uranus.position.set(34,0,0);
 
 scene.add(uranus);
 
 const napGeometry = new THREE.SphereGeometry(4,42,42)
 const napMaterial = new THREE.MeshStandardMaterial({map:napText, roughness: 1, metalness:0 });
 const napturn = new THREE.Mesh(napGeometry, napMaterial);
-napturn.position.x = 7
-napturn.position.z = -70
+napturn.position.set(55,0,0);
 
 scene.add(napturn);
+
+
 
 
 const starGeometry = new THREE.BufferGeometry();
@@ -183,16 +191,19 @@ scene.add(stars);
 
 function  animate() {
     requestAnimationFrame(animate)
-    planet.rotation.y += 0.01;
-    mercury.rotation.y += 0.01;
+    planet.rotation.y += 0.010;
+    mercury.rotation.y += 0.008;
     sun.rotation.y += 0.01;
-    venus.rotation.y += 0.01;
-    mars.rotation.y += 0.01;
-    jupiter.rotation.y += 0.01;
-    saturn.rotation.y += 0.01;
-   uranus.rotation.y += 0.01;
+    venus.rotation.y += -0.002;
+    mars.rotation.y += 0.009;
+    jupiter.rotation.y += 0.025;
+    saturn.rotation.y += 0.022;
+    uranus.rotation.y += -0.015;
+    napturn.rotation.y += 0.018;
 
 
+    mercuryOrbit.rotation.y += 0.040;
+    venusOrbit.rotation.y += 0.015;
 
     controls.update();
     renderer.render(scene, cam);
