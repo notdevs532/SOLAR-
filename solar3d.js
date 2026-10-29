@@ -38,7 +38,7 @@ window.addEventListener("resize", () => {
 const controls= new OrbitControls(cam,renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
-controls.minDistance = 5;
+controls.minDistance = 1;
 controls.maxDistance = 200;
 
 controls.target.set(35, 0, 0);
@@ -73,54 +73,73 @@ scene.add(sun);
 const merGeometry = new THREE.SphereGeometry(1,42,42)
 const merMaterial = new THREE.MeshStandardMaterial({map:merText, roughness: 1, metalness:0 });
 const mercury = new THREE.Mesh(merGeometry, merMaterial);
-mercury.position.set(-23,0,0);
+mercury.position.set(7,0,0);
 
 scene.add(mercury);
 
 const mercuryOrbit = new THREE.Object3D();
 scene.add(mercuryOrbit);
-mercuryOrbit.position.set(-23,0,0);
+mercuryOrbit.position.set(-30,0,0);
 mercuryOrbit.add(mercury);
 
 
 const venGeometry = new THREE.SphereGeometry(1.7,42,42)
 const venMaterial = new THREE.MeshStandardMaterial({map:venText, roughness: 1, metalness:0 });
 const venus = new THREE.Mesh(venGeometry, venMaterial);
-venus.position.set(-18,0,0);
+venus.position.set(12,0,0);
 
 
 scene.add(venus);
 
 const venusOrbit = new THREE.Object3D();
 scene.add(venusOrbit);
-venusOrbit.position.set(-18,0,0);
+venusOrbit.position.set(-30,0,0);
 venusOrbit.add(venus);
 
 
 const geometry = new THREE.SphereGeometry(1.7,42,42)
 const material = new THREE.MeshStandardMaterial({map:texture, roughness: 1, metalness:0 });
 const planet = new THREE.Mesh(geometry, material);
-planet.position.set(-12,0,0);
+planet.position.set(18,0,0);
 
 scene.add(planet);
+
+const earthOrbit = new THREE.Object3D();
+scene.add(earthOrbit);
+earthOrbit.position.set(-30,0,0);
+earthOrbit.add(planet);
+
 
 
 const marGeometry = new THREE.SphereGeometry(1.3,42,42)
 const marMaterial = new THREE.MeshStandardMaterial({map:marText, roughness: 1, metalness:0 });
 const mars = new THREE.Mesh(marGeometry, marMaterial);
-mars.position.set(-5,0,0);
+mars.position.set(25,0,0);
 scene.add(mars);
+
+
+const marsOrbit = new THREE.Object3D();
+scene.add(marsOrbit);
+marsOrbit.position.set(-30,0,0);
+marsOrbit.add(mars);
+
 
 const jupGeometry = new THREE.SphereGeometry(4.4,42,42)
 const jupMaterial = new THREE.MeshStandardMaterial({map:jupText, roughness: 1, metalness:0 });
 const jupiter = new THREE.Mesh(jupGeometry, jupMaterial);
-jupiter.position.set(7,0,0);
+jupiter.position.set(37,0,0);
 scene.add(jupiter);
+
+const jupOrbit = new THREE.Object3D();
+scene.add(jupOrbit);
+jupOrbit.position.set(-30,0,0);
+jupOrbit.add(jupiter);
+
 
 const satGeometry = new THREE.SphereGeometry(4,42,42)
 const satMaterial = new THREE.MeshStandardMaterial({map:satText, roughness: 1, metalness:0 });
 const saturn = new THREE.Mesh(satGeometry, satMaterial);
-saturn.position.set(20,0,0);
+saturn.position.set(50,0,0);
 
 scene.add(saturn);
 
@@ -142,20 +161,36 @@ ring.rotation.x = -Math.PI / 2;
 
 saturn.add(ring);
 
+const satOrbit = new THREE.Object3D();
+scene.add(satOrbit);
+satOrbit.position.set(-30,0,0);
+satOrbit.add(saturn);
+
+
 const uraGeometry = new THREE.SphereGeometry(4,42,42)
 const uraMaterial = new THREE.MeshStandardMaterial({map:uranusText, roughness: 1, metalness:0 });
 const uranus = new THREE.Mesh(uraGeometry, uraMaterial);
-uranus.position.set(34,0,0);
+uranus.position.set(64,0,0);
 
 scene.add(uranus);
+
+const uranusOrbit = new THREE.Object3D();
+scene.add(uranusOrbit);
+uranusOrbit.position.set(-30,0,0);
+uranusOrbit.add(uranus);
+
 
 const napGeometry = new THREE.SphereGeometry(4,42,42)
 const napMaterial = new THREE.MeshStandardMaterial({map:napText, roughness: 1, metalness:0 });
 const napturn = new THREE.Mesh(napGeometry, napMaterial);
-napturn.position.set(55,0,0);
+napturn.position.set(85,0,0);
 
 scene.add(napturn);
 
+const napOrbit = new THREE.Object3D();
+scene.add(napOrbit);
+napOrbit.position.set(-30,0,0);
+napOrbit.add(napturn);
 
 
 
@@ -204,6 +239,12 @@ function  animate() {
 
     mercuryOrbit.rotation.y += 0.040;
     venusOrbit.rotation.y += 0.015;
+    earthOrbit.rotation.y += 0.010;
+    marsOrbit.rotation.y +=  0.008;
+    jupOrbit.rotation.y += 0.004;
+    satOrbit.rotation.y += 0.003;
+    uranusOrbit.rotation.y += 0.002	;
+    napOrbit.rotation.y += 0.001;
 
     controls.update();
     renderer.render(scene, cam);
