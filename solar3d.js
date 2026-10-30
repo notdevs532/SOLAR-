@@ -38,7 +38,7 @@ window.addEventListener("resize", () => {
 const controls= new OrbitControls(cam,renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
-controls.minDistance = 1;
+controls.minDistance = 0.1;
 controls.maxDistance = 200;
 
 controls.target.set(35, 0, 0);
@@ -82,6 +82,20 @@ scene.add(mercuryOrbit);
 mercuryOrbit.position.set(-30,0,0);
 mercuryOrbit.add(mercury);
 
+const merPathGeometry  =  new THREE.RingGeometry(6.9, 7.05, 128);
+const merPathMaterial = new THREE.MeshBasicMaterial({
+    color: 0x667080,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 1.5
+});
+
+const mercuryPath = new THREE.Mesh(merPathGeometry, merPathMaterial);
+mercuryPath.rotation.x = -Math.PI / 2;
+mercuryPath.position.set(-30, 0, 0);
+
+scene.add(mercuryPath);
+
 
 const venGeometry = new THREE.SphereGeometry(1.7,42,42)
 const venMaterial = new THREE.MeshStandardMaterial({map:venText, roughness: 1, metalness:0 });
@@ -95,6 +109,20 @@ const venusOrbit = new THREE.Object3D();
 scene.add(venusOrbit);
 venusOrbit.position.set(-30,0,0);
 venusOrbit.add(venus);
+
+const venPathGeometry  =  new THREE.RingGeometry(11.9, 12.05, 128);
+const venPathMaterial = new THREE.MeshBasicMaterial({
+    color: 0x667080,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 1.5
+});
+
+const venusPath = new THREE.Mesh(venPathGeometry, venPathMaterial);
+venusPath.rotation.x = -Math.PI / 2;
+venusPath.position.set(-30, 0, 0);
+
+scene.add(venusPath);
 
 
 const geometry = new THREE.SphereGeometry(1.7,42,42)
@@ -111,6 +139,21 @@ earthOrbit.add(planet);
 
 
 
+const earthPathGeometry  =  new THREE.RingGeometry(17.9, 18.05, 128);
+const earthPathMaterial = new THREE.MeshBasicMaterial({
+    color: 0x667080,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 1.5
+});
+
+const earthPath = new THREE.Mesh(earthPathGeometry, earthPathMaterial);
+earthPath.rotation.x = -Math.PI / 2;
+earthPath.position.set(-30, 0, 0);
+
+scene.add(earthPath);
+
+
 const marGeometry = new THREE.SphereGeometry(1.3,42,42)
 const marMaterial = new THREE.MeshStandardMaterial({map:marText, roughness: 1, metalness:0 });
 const mars = new THREE.Mesh(marGeometry, marMaterial);
@@ -124,6 +167,22 @@ marsOrbit.position.set(-30,0,0);
 marsOrbit.add(mars);
 
 
+
+const marPathGeometry  =  new THREE.RingGeometry(24.9, 25.05, 128);
+const marPathMaterial = new THREE.MeshBasicMaterial({
+    color: 0x667080,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 1.5
+});
+
+const marsPath = new THREE.Mesh(marPathGeometry, marPathMaterial);
+marsPath.rotation.x = -Math.PI / 2;
+marsPath.position.set(-30, 0, 0);
+
+scene.add(marsPath);
+
+
 const jupGeometry = new THREE.SphereGeometry(4.4,42,42)
 const jupMaterial = new THREE.MeshStandardMaterial({map:jupText, roughness: 1, metalness:0 });
 const jupiter = new THREE.Mesh(jupGeometry, jupMaterial);
@@ -135,6 +194,21 @@ scene.add(jupOrbit);
 jupOrbit.position.set(-30,0,0);
 jupOrbit.add(jupiter);
 
+
+
+const jupPathGeometry  =  new THREE.RingGeometry(36.9, 37.05, 128);
+const jupPathMaterial = new THREE.MeshBasicMaterial({
+    color: 0x667080,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 1.5
+});
+
+const jupiterPath = new THREE.Mesh(jupPathGeometry, jupPathMaterial);
+jupiterPath.rotation.x = -Math.PI / 2;
+jupiterPath.position.set(-30, 0, 0);
+
+scene.add(jupiterPath);
 
 const satGeometry = new THREE.SphereGeometry(4,42,42)
 const satMaterial = new THREE.MeshStandardMaterial({map:satText, roughness: 1, metalness:0 });
@@ -167,6 +241,21 @@ satOrbit.position.set(-30,0,0);
 satOrbit.add(saturn);
 
 
+
+const satPathGeometry  =  new THREE.RingGeometry(49.9, 50.05, 128);
+const satPathMaterial = new THREE.MeshBasicMaterial({
+    color: 0x667080,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 1.5
+});
+
+const saturnPath = new THREE.Mesh(satPathGeometry, satPathMaterial);
+saturnPath.rotation.x = -Math.PI / 2;
+saturnPath.position.set(-30, 0, 0);
+
+scene.add(saturnPath);
+
 const uraGeometry = new THREE.SphereGeometry(4,42,42)
 const uraMaterial = new THREE.MeshStandardMaterial({map:uranusText, roughness: 1, metalness:0 });
 const uranus = new THREE.Mesh(uraGeometry, uraMaterial);
@@ -180,6 +269,20 @@ uranusOrbit.position.set(-30,0,0);
 uranusOrbit.add(uranus);
 
 
+const uraPathGeometry  =  new THREE.RingGeometry(63.9, 64.05, 128);
+const uraPathMaterial = new THREE.MeshBasicMaterial({
+    color: 0x667080,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 1.5
+});
+
+const uranusPath = new THREE.Mesh(uraPathGeometry, uraPathMaterial);
+uranusPath.rotation.x = -Math.PI / 2;
+uranusPath.position.set(-30, 0, 0);
+
+scene.add(uranusPath);
+
 const napGeometry = new THREE.SphereGeometry(4,42,42)
 const napMaterial = new THREE.MeshStandardMaterial({map:napText, roughness: 1, metalness:0 });
 const napturn = new THREE.Mesh(napGeometry, napMaterial);
@@ -192,6 +295,20 @@ scene.add(napOrbit);
 napOrbit.position.set(-30,0,0);
 napOrbit.add(napturn);
 
+const napPathGeometry  =  new THREE.RingGeometry(84.9, 85.05, 128);
+const napPathMaterial = new THREE.MeshBasicMaterial({
+    color: 0x667080,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 1.5
+});
+
+const naptunePath = new THREE.Mesh(napPathGeometry, napPathMaterial);
+naptunePath.rotation.x = -Math.PI / 2;
+naptunePath.position.set(-30, 0, 0);
+
+scene.add(naptunePath);
+
 
 
 const starGeometry = new THREE.BufferGeometry();
@@ -200,9 +317,9 @@ const starcount = 1500;
 const starPositions = [];
 
 for (let i = 0; i < starcount; i++){
-    const  x = (Math.random() - 0.5 )* 200;
-    const  y = (Math.random() - 0.5 )* 200;
-    const  z = (Math.random() - 0.5 )* 200;
+    const  x = (Math.random() - 0.5 )* 400;
+    const  y = (Math.random() - 0.5 )* 400;
+    const  z = (Math.random() - 0.5 )* 400;
 
     starPositions.push(x,y,z);
 
@@ -218,7 +335,9 @@ starGeometry.setAttribute(
 
 const starMaterial = new THREE.PointsMaterial({
     color: 0xffffff,
-    size: 0.3
+    size: 0.3,
+    transparent:true,
+    opacity:0.87,
 });
 
 const stars = new THREE.Points(starGeometry, starMaterial);
