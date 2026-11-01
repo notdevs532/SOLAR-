@@ -11,37 +11,52 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    background-color: #0a0015;
 }
-#solarPlanet {
-    padding: 50px 20px;
-}
-
-.planet {
-    margin: 15px auto;
-}
-
-.planet h2 {
-    cursor: pointer;
-    color: #9dbbff;
-    transition: 0.3s;
-}
-
-.planets h2:hover {
-    color: white;
-    box-shadow: 0 0 15px #3984ff;
-}
-
-
 #planetInfo {
-    max-width: 500px;
-    margin: 35px auto;
-    padding: 25px;
-    border: 1px solid #263b65;
-    border-radius: 12px;
-    background: #0b1226;
+    position: fixed;
+    right: 35px;
+    top: 50%;
+    transform: translate(30px, -50%);
+    width: 320px;
+    max-height: 75vh;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+
+     background: rgba(8, 13, 32, 0.94);
+    border: 1px solid #65e63d;
+
+
+    color: white;
+    z-index: 5;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s ease;rder-radius: 12px;
+
+
+
+}
+
+#planetInfo.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0, -50%);
+}
+
+#planetName {
+    color: #65e63d;
+}
+
+#planetDescription {
+    color: #c5cbd8;
+    line-height: 1.6;
 }
 
 canvas {
     width: auto ;
     height: auto ;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
 }

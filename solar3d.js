@@ -371,5 +371,54 @@ function  animate() {
 
 animate();
 
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+const clickablePlanets = [
+    {mesh: mercury, name : "Mercury"},
+      {mesh: venus ,name : "Venus"},
+        {mesh: planet, name : "Earth"},
+          {mesh: mars, name : "Mars"},
+            {mesh: jupiter, name : "Jupiter"},
+              {mesh: saturn, name : "Saturn"},
+                {mesh: uranus, name : "Uranus"},
+                  {mesh: napturn, name : "Neptune"},
+];
+
+renderer.domElement.addEventListener("click",(event) =>{
+     const rect = renderer.domElement.getBoundingClientRect();
+
+      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+       mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+         raycaster.setFromCamera(mouse,cam);
+
+
+      
+    const planetMeshes = clickablePlanets.map(item => item.mesh) ;
+     const hits = raycaster.intersectObjects(planetMeshes, true);
+
+       if (hits.length > 0) {
+        let clickedObject = hits[0].object;
+
+        while (
+            clickedObject.parent &&
+            !clickablePlanets.some(item => item.mesh === clickedObject)
+        ) {
+            clickedObject = clickedObject.parent;
+        }
+
+        const selectedPlanet = clickablePlanets.find(
+            item => item.mesh === clickedObject
+        );
+
+        if (selectedPlanet) {
+            console.log("Clicked:", selectedPlanet.name);
+            window.showPlanet(selectedPlanet.name);
+        }
+    }
+});
+
+
 
 
