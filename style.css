@@ -59,6 +59,22 @@ body {
         line-height: 3;
 
 }
+
+#zoomOutBtn  {
+    position: fixed;
+    top:25px;
+    left:24px;
+    padding:12px 20px;
+    background: #080d20;
+    color: #65e63d;
+    border: 1px solid #65e63d;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+
+
 canvas {
     width: auto ;
     height: auto ;

@@ -390,6 +390,25 @@ renderer.render(scene, cam);
 
 animate();
 
+const overviewCamera = cam.position.clone();
+const overviewTarget = controls.target.clone();
+
+function zoomOut() {
+
+    foucusedPlanet = null;
+
+    cameraGoal.copy(overviewCamera);
+    targetGoal.copy(overviewTarget);
+
+    document.getElementById("planetInfo")
+        .classList.remove("active");
+}
+
+window.zoomOut = zoomOut;
+
+
+
+
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
