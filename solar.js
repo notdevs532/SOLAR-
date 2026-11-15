@@ -266,20 +266,19 @@ function showPlanet(name) {
     document.getElementById("planetDescription").textContent =
     info.description;
 
-
-    document.getElementById("planetMoons").textContent =
-        "Nickname:" + info.nickname +
-        "Discovered:" + info.discovered +
-        "Type:" + info.type +
-        "Diameter:" + info.diameter +
-        "Distance:" + info.distance +
-        "Day:" + info.day +
-        "Year:" + info.year +
-        "Moons:" + info.moons +
-        "Atomosphere:" + info.atmosphere +
-        "Temeprature:" + info.temperature +
-        "Notable Feature:" + info.feature +
-        "Fun Fact:" + info.funFact;
-
-
+    document.getElementById("planetMoons").innerHTML =
+    
+    "<hr>" + "<h3>PLANET DEATAILS</h3>" + "<p>Nickname: " + info.nickname + "</p>" +
+    "<p>Discovered: " + info.discovered + "</p>" +
+    "<p>Type: " + info.type + "</p>" +
+    "<p>Diameter: " + info.diameter + "</p>" +
+    "<p>Distance: " + info.distance + "</p>" +
+    "<p>Day: " + info.day + "</p>" +
+    "<p>Year: " + info.year + "</p>" +
+    "<p>Moons: " + info.moons + "</p>" +
+    "<p>Atmosphere: " + info.atmosphere + "</p>" +
+    "<p>Temperature: " + info.temperature + "</p>" +
+    "<p>Notable Feature: " + info.feature + "</p>" +
+    "<p>Fun Fact: " + info.funFact + "</p>"
+    
     }

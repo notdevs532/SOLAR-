@@ -1,41 +1,45 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> SOLAR | Explore the Planets</title>
+
+    <title>SOLAR | Explore the Planets</title>
+
     <link rel="stylesheet" href="style.css">
+
     <script src="solar.js" defer></script>
 
-
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
-  }
-}
-</script>
-
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+        }
+    }
+    </script>
 
     <script type="module" src="solar3d.js"></script>
 </head>
-<section id="planetInfo">
 
-    <h2 id="planetName"></h2>
-
-    <h2 id="planetDescription">
-    </h2>
-    <div id="planetMoons">
-      
-    </div>
-
-   <button id="zoomOutBtn" onClick= "zoomOut()">  ← Solar System</button>
-
-</section>
 <body>
 
+    <section id="planetInfo">
 
+        <h2 id="planetName"></h2>
+
+        <p id="planetDescription"></p>
+
+        <div class="infoDivider"></div>
+
+        <div id="planetMoons"></div>
+
+        <button id="zoomOutBtn" onclick="zoomOut()">
+            ← Solar System
+        </button>
+
+    </section>
 
 </body>
 </html>
