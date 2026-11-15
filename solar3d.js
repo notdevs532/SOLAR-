@@ -5,7 +5,7 @@ import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.180.0/exampl
 
 const scene = new THREE.Scene();
 const cam =  new THREE.PerspectiveCamera(
-    120,  
+    60,  
     window.innerWidth / window.innerHeight,
     0.1,
     1000
@@ -41,7 +41,7 @@ controls.dampingFactor = 0.05;
 controls.minDistance = 0.1;
 controls.maxDistance = 200;
 
-controls.target.set(35, 0, 0);
+controls.target.set(0, 0, 0);
 controls.update();
 
 const light = new THREE.DirectionalLight(0xffffff, 3)
@@ -340,8 +340,16 @@ const starMaterial = new THREE.PointsMaterial({
     opacity:0.87,
 });
 
+
+const cameraGoal = cam.position.clone();
+const targetGoal = controls.target.clone();
+
+
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
+
+let foucusedPlanet = null;
+const cameraOffset = new THREE.Vector3();
 
 function  animate() {
     requestAnimationFrame(animate)
@@ -365,8 +373,19 @@ function  animate() {
     uranusOrbit.rotation.y += 0.002	;
     napOrbit.rotation.y += 0.001;
 
+if (foucusedPlanet) {
+    const currentPosition = new THREE.Vector3();
+    foucusedPlanet.getWorldPosition(currentPosition);
+    targetGoal.copy(currentPosition);
+    cameraGoal.copy(currentPosition).add(cameraOffset);
+
+    cam.position.lerp(cameraGoal, 0.05);
+    controls.target.lerp(targetGoal, 0.05);
+
     controls.update();
-    renderer.render(scene, cam);
+}
+
+renderer.render(scene, cam);
 }
 
 animate();
@@ -375,50 +394,67 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
 const clickablePlanets = [
-    {mesh: mercury, name : "Mercury"},
-      {mesh: venus ,name : "Venus"},
-        {mesh: planet, name : "Earth"},
-          {mesh: mars, name : "Mars"},
-            {mesh: jupiter, name : "Jupiter"},
-              {mesh: saturn, name : "Saturn"},
-                {mesh: uranus, name : "Uranus"},
-                  {mesh: napturn, name : "Neptune"},
+    { mesh: mercury, name: "Mercury" },
+    { mesh: venus, name: "Venus" },
+    { mesh: planet, name: "Earth" },
+    { mesh: mars, name: "Mars" },
+    { mesh: jupiter, name: "Jupiter" },
+    { mesh: saturn, name: "Saturn" },
+    { mesh: uranus, name: "Uranus" },
+    { mesh: napturn, name: "Neptune" },
 ];
 
-renderer.domElement.addEventListener("click",(event) =>{
-     const rect = renderer.domElement.getBoundingClientRect();
+renderer.domElement.addEventListener("click", (event) => {
+    const rect = renderer.domElement.getBoundingClientRect();
 
-      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-       mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-         raycaster.setFromCamera(mouse,cam);
+    raycaster.setFromCamera(mouse, cam);
 
+    const planetMeshes = clickablePlanets.map((item) => item.mesh);
+    const hits = raycaster.intersectObjects(planetMeshes, true);
 
-      
-    const planetMeshes = clickablePlanets.map(item => item.mesh) ;
-     const hits = raycaster.intersectObjects(planetMeshes, true);
-
-       if (hits.length > 0) {
+    if (hits.length > 0) {
         let clickedObject = hits[0].object;
 
         while (
             clickedObject.parent &&
-            !clickablePlanets.some(item => item.mesh === clickedObject)
+            !clickablePlanets.some((item) => item.mesh === clickedObject)
         ) {
             clickedObject = clickedObject.parent;
         }
 
         const selectedPlanet = clickablePlanets.find(
-            item => item.mesh === clickedObject
+            (item) => item.mesh === clickedObject
         );
 
         if (selectedPlanet) {
-            console.log("Clicked:", selectedPlanet.name);
+            const planetPosition = new THREE.Vector3();
+            selectedPlanet.mesh.getWorldPosition(planetPosition);
+
+            const direction = cam.position.clone()
+                .sub(planetPosition)
+                .normalize();
+
+            cameraGoal.copy(planetPosition).add(direction.multiplyScalar(15));
+            targetGoal.copy(planetPosition);
+
+            foucusedPlanet = selectedPlanet.mesh;
+
+            cameraOffset.copy(cam.position)
+                .sub(planetPosition)
+                .normalize()
+                .multiplyScalar(15);
+
+            targetGoal.copy(planetPosition);
+            cameraGoal.copy(planetPosition).add(cameraOffset);
+
             window.showPlanet(selectedPlanet.name);
+            const planetInfo = document.getElementById("planetInfo");
+            if (planetInfo) {
+                planetInfo.classList.add("active");
+            }
         }
     }
 });
-
-
-
-
